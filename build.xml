@@ -1,0 +1,43 @@
+<project name="P2" default="run" basedir=".">
+    <!-- Definir las propiedades para reutilizar rutas -->
+    <property name="src.dir" location="src/main/java"/>
+    <property name="jflex.dir" location="src/main/jflex"/>
+    <property name="build.dir" location="build"/>
+    <property name="test.file" location="src/tst/prueba.txt"/>
+    <property name="lib.dir" location="lib"/>
+
+    <!-- Crear el directorio build si no existe -->
+    <target name="init">
+        <mkdir dir="${build.dir}"/>
+    </target>
+
+    <!-- Generar el Lexer a partir del archivo .flex -->
+    <target name="generate-lexer">
+        <java classname="jflex.Main" fork="true" classpath="${lib.dir}/jflex-full-1.8.2.jar">
+            <arg value="${jflex.dir}/Lexer.flex"/>
+        </java>
+    </target>
+
+    <!-- Compilar los archivos .java -->
+    <target name="compile" depends="generate-lexer">
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+            <classpath>
+                <pathelement location="${src.dir}"/>
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- Ejecutar el programa principal -->
+    <target name="run" depends="compile">
+        <java classname="main.jflex.Lexer" classpath="${build.dir}">
+            <arg value="${test.file}"/>
+        </java>
+    </target>
+
+    <!-- Limpiar el directorio build -->
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+</project>
+
+
