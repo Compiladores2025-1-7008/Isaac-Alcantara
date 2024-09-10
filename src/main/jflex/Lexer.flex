@@ -47,12 +47,13 @@ id = [a-zA-Z_][a-zA-Z_0-9]*
 {rpar}             { actual = new Token(ClaseLexica.RPAR, yytext()); System.out.println(actual.toString()); }
 {coma}             { actual = new Token(ClaseLexica.COMA, yytext()); System.out.println(actual.toString()); }
 {pyc}              { actual = new Token(ClaseLexica.PYC, yytext()); System.out.println(actual.toString()); }
-{if}                { actual = new Token(ClaseLexica.IF, yytext()); System.out.println(actual.toString()); }
+{if}               { actual = new Token(ClaseLexica.IF, yytext()); System.out.println(actual.toString()); }
 {else}             { actual = new Token(ClaseLexica.ELSE, yytext()); System.out.println(actual.toString()); }
 {while}            { actual = new Token(ClaseLexica.WHILE, yytext()); System.out.println(actual.toString()); }
 {int}              { actual = new Token(ClaseLexica.INT, yytext()); System.out.println(actual.toString()); }
 {float}            { actual = new Token(ClaseLexica.FLOAT, yytext()); System.out.println(actual.toString()); }
 {num}              { actual = new Token(ClaseLexica.NUMERO, yytext()); System.out.println(actual.toString()); }
 {id}               { actual = new Token(ClaseLexica.ID, yytext()); System.out.println(actual.toString()); }
+.                  { System.out.println("Error léxico: " + yytext());}
 
 
