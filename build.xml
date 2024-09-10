@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project name="P2" basedir="." default="run">
+
+    <!-- Target para limpiar el directorio de compilación -->
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+
+    <!-- Target para generar el archivo Lexer.java con JFlex -->
+    <target name="jflex" depends="clean">
+        <taskdef name="jflex" classname="jflex.anttask.JFlexTask" classpath="path/to/jflex.jar"/>
+        <jflex file="src/main/jflex/Lexer.flex" destdir="src/main/java"/>
+    </target>
+
+    <!-- Target para compilar el código fuente -->
+    <target name="compile" depends="jflex">
+        <mkdir dir="build/classes"/>
+        <javac srcdir="src" destdir="build/classes">
+            <classpath>
+              
+            </classpath>
+        </javac>
+    </target>
+
+    <!-- Target para empaquetar el proyecto en un archivo JAR -->
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+        <jar destfile="build/jar/P2.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Main-Class" value="main.jflex.Lexer"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <!-- Target para ejecutar el archivo JAR -->
+    <target name="run" depends="jar">
+        <java jar="build/jar/P2.jar" fork="true">
+            <arg value="src/tst/input.txt"/>
+        </java>
+    </target>
+
+</project>
+
