@@ -7,7 +7,7 @@
 Alcántara Estrada Kevin Isaac
 
 ### Notas
-Para ejecutar el archivo build.xml, basta con colocarse en el directorio base y ejecutar la instrucción ´´ant run´´´
+Para ejecutar el archivo build.xml, basta con colocarse en el directorio base y ejecutar la instrucción ´´´ant run´´´ (requiere tener instalado el programa ant, que puede hacerse con el comando ´´´sudo apt-get install ant´´´ ).
 
 Se realizaron todos los puntos de la práctica, incluyendo los extras, que se fueron comentando y añadiendo a través del historial de commits.
 
