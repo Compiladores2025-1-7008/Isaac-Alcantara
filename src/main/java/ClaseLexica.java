@@ -1,5 +1,6 @@
 package main.java;
 
+//Definiciones de las clases léxicas a las cuales puede pertenecer un token
 public enum ClaseLexica {
 
     LPAR,    // Parentesis izquierdo
@@ -12,7 +13,7 @@ public enum ClaseLexica {
     WHILE,    // Palabra reservada 'while'
     INT,      // Palabra reservada 'int'
     FLOAT,    // Palabra reservada 'float'
-    NUMERO // Numero flotante (o en notavion cientifica)
+    NUMERO // Numero flotante (o en notación cientifica)
 
 
 }
