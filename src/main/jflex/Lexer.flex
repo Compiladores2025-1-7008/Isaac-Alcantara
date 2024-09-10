@@ -32,7 +32,7 @@ lpar = "("
 rpar = ")"
 ent = [0-9]+
 decimal = {ent} \.{ent}*
-notcient = {ent} \.{ent}* ([eE][+-]? {ent})?
+notcient = {ent} \.?{ent}* ([eE][+-]? {ent})?
 
 
 num = {ent} | {decimal} | {notcient}
