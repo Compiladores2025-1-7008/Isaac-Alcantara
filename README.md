@@ -1,2 +1,0 @@
-# Laboratorio
-Prácticas de Laboratorio
