@@ -9,13 +9,13 @@ public class ManejadorTokens {
                 return "ID";
             case 2:
             case 3:
-                return "INT";
+                return "ENT";
             case 4:
-                return "ESP";
+                return "REAL";
             case 6:
                 return "OP";
             case 7:
-                return "FLOAT";
+                return "REAL";
             default:
                 return "UNKNOWN";
         }
