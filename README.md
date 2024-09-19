@@ -9,11 +9,15 @@
 ### Introducción
 Se desarrolló un analizador léxico en Java de acuerdo a un lenguaje dado por la profesora que se compone de las siguientes expresiones regulares.
 
-id -> ([a-z])⁺
-ent -> ([1-9](0-9)^* | 0)
-real -> ([1-9](0-9)^* | 0).([0-9]^*
-esp -> ([ \t\n\v\r])⁺
-op -> ::= | +
+-id -> ([a-z])⁺
+
+-ent -> ([1-9](0-9)^* | 0)
+
+-real -> ([1-9](0-9)^* | 0).([0-9]^*
+
+-esp -> ([ \t\n\v\r])⁺
+
+-op -> ::= | +
 
 #### Estructura del Analizador Léxico
 El analizador léxico que presento se divide en 4 archivos, de la siguiente manera:
