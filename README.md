@@ -13,7 +13,7 @@ Se desarrolló un analizador léxico en Java de acuerdo a un lenguaje dado por l
 
 -ent -> ([1-9](0-9)^* | 0)
 
--real -> ([1-9](0-9)^* | 0).([0-9]^*
+-real -> ([1-9](0-9)^* | 0).([0-9])^*
 
 -esp -> ([ \t\n\v\r])⁺
 
