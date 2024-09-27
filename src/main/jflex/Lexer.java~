@@ -694,7 +694,7 @@ public int getLine() { return yyline; }
             // fall through
           case 34: break;
           case 16: 
-            { token_actual = new Token(ClaseLexica.INT, yytext()); System.out.println("Encontramos una palabra reservada: "+ token_actual);return token_actual.getClaseLexica();
+            { token_actual = new Token(ClaseLexica.INT, yytext()); System.out.println("Encontramos una palabra reservada"+ token_actual);return token_actual.getClaseLexica();
             } 
             // fall through
           case 35: break;

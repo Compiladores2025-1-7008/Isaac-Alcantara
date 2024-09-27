@@ -13,6 +13,10 @@ public class Token {
         return clase;
     }
 
+    public String getLexema() {
+        return lexema;
+    }
+
     @Override
     public String toString() {
         return "<" + this.clase + "," + this.lexema + ">";

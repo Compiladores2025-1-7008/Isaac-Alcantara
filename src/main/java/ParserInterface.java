@@ -1,5 +1,5 @@
 package main.java;
-
+import main.java.Token;
 public interface ParserInterface {
 
     /**
@@ -8,7 +8,7 @@ public interface ParserInterface {
      * el símbolo terminal esperado. 
      * @param claseLexica el símbolo terminal esperado
      */
-    public void eat(int claseLexica);
+    public void eat(Token actual);
 
     /**
      * Método que nos permite imprimir un error sintáctico

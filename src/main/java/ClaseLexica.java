@@ -16,6 +16,6 @@ public class ClaseLexica {
     public static final int PYC = 13;
     public static final int COMA = 14;
     public static final int ID = 15;
-    public static final int NUM = 15;
+    public static final int NUM = 16;
     //Agregar los simbolos terminales, el valor es a tu elección.
 }
