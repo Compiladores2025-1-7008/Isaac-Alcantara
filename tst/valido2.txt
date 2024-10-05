@@ -1,0 +1,15 @@
+int a, _b;
+float c, d,m,l,mr,a,_z,_s;
+
+c = b * 30-v+100;
+while (4+3) d=d+1;
+if (d) a=34; 
+	else 
+	if(100-20/40) 
+		_z=x+100;
+	else
+	while(b/2) ar=40;
+
+
+
+
