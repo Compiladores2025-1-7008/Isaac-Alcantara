@@ -1,0 +1,6 @@
+int a, _b;
+float c, d,m,l,mr,a,_z,_s;
+
+c = b * 30-v+100;
+while (if 34 else 2) d=d+1;
+

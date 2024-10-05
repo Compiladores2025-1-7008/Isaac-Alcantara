@@ -97,7 +97,7 @@ public class Parser implements ParserInterface {
     }
 
     public void sentencia_prima() { // sentencia_prima -> sentencia sentencia_prima | epsilon
-        if (actual == ClaseLexica.ID || actual == ClaseLexica.IF || actual == ClaseLexica.WHILE) {
+        if (actual == ClaseLexica.ID || actual == ClaseLexica.IF || actual == ClaseLexica.WHILE ) {
             sentencia();
             sentencia_prima();
         }

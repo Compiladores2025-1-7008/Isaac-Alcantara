@@ -1,0 +1,6 @@
+int a, _b;
+float c, d;
+
+c = b * 30;
+while (4+3) d=d+1;
+if (d) a=34; else a=37;
