@@ -1,25 +1,25 @@
 package main.java;
+
 import java.io.IOException;
 import main.jflex.Lexer;
 
 
-public class Parser implements ParserInterface {
+public class Parser_Token implements ParserInterface {
     private Lexer lexer;
-    private int actual;
 
-    public Parser(Lexer lexer) {
+    public Parser_Token(Lexer lexer) {
         this.lexer = lexer;
     }
 
     public void eat(int claseLexica) {
-        if(actual == claseLexica) {
+        if (lexer.actual.getClaseLexica() == claseLexica) { // Comparamos la clase léxica del token actual
             try {
-                actual = lexer.yylex();
+                lexer.yylex(); // Obtenemos el siguiente token, que actualizará lexer.actual.getClaseLexica()
             } catch (IOException ioe) {
                 System.err.println("Failed to read next token");
             }
         } else {
-            error("Se esperaba el token: " + claseLexica + " pero se encontró: " + actual);
+            error("Se esperaba el token: " + claseLexica + " pero se encontró: " + lexer.actual.getClaseLexica() + " (" + lexer.actual.getLexema() + ")");
         }
     }
 
@@ -30,13 +30,13 @@ public class Parser implements ParserInterface {
 
     public void parse() {
         try {
-            this.actual = lexer.yylex();
+            lexer.yylex(); // Obtenemos el primer token, esto actualiza lexer.actual.getClaseLexica()
         } catch (IOException ioe) {
             System.err.println("Error: No fue posible obtener el primer token de la entrada.");
             System.exit(1);
         }
-        S();
-        if (actual == 0) { // llegamos al EOF sin error
+        S(); // Inicia el análisis sintáctico
+        if (lexer.actual.getClaseLexica() == 0) { // Si llegamos al EOF sin error
             System.out.println("La cadena es aceptada");
         } else {
             error("Se esperaba el final del archivo");
@@ -54,10 +54,10 @@ public class Parser implements ParserInterface {
     }
 
     public void declaracion_prima() { // declaracion_prima -> declaracion declaracion_prima | epsilon
-        if (actual == ClaseLexica.INT || actual == ClaseLexica.FLOAT) { // Si es un tipo, seguimos con otra declaración.
+        if (lexer.actual.getClaseLexica() == ClaseLexica.INT || lexer.actual.getClaseLexica() == ClaseLexica.FLOAT) { // Si es un tipo, seguimos con otra declaración
             declaracion();
             declaracion_prima();
-        } 
+        }
         // Si no es tipo, epsilon (cadena vacía), no hacemos nada.
     }
 
@@ -68,9 +68,9 @@ public class Parser implements ParserInterface {
     }
 
     public void tipo() { // tipo -> int | float
-        if (actual == ClaseLexica.INT) {
+        if (lexer.actual.getClaseLexica() == ClaseLexica.INT) {
             eat(ClaseLexica.INT); // Consumimos el token "int"
-        } else if (actual == ClaseLexica.FLOAT) {
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.FLOAT) {
             eat(ClaseLexica.FLOAT); // Consumimos el token "float"
         } else {
             error("Se esperaba un tipo 'int' o 'float'.");
@@ -83,7 +83,7 @@ public class Parser implements ParserInterface {
     }
 
     public void lista_prima() { // lista_prima -> , ID lista_prima | epsilon
-        if (actual == ClaseLexica.COMA) { // Si hay una coma, continuamos con otro ID
+        if (lexer.actual.getClaseLexica() == ClaseLexica.COMA) { // Si hay una coma, continuamos con otro ID
             eat(ClaseLexica.COMA); // Consumimos la coma
             eat(ClaseLexica.ID); // Consumimos el siguiente ID
             lista_prima(); // Llamada recursiva para continuar con la lista
@@ -97,7 +97,7 @@ public class Parser implements ParserInterface {
     }
 
     public void sentencia_prima() { // sentencia_prima -> sentencia sentencia_prima | epsilon
-        if (actual == ClaseLexica.ID || actual == ClaseLexica.IF || actual == ClaseLexica.WHILE) {
+        if (lexer.actual.getClaseLexica() == ClaseLexica.ID || lexer.actual.getClaseLexica() == ClaseLexica.IF || lexer.actual.getClaseLexica() == ClaseLexica.WHILE) {
             sentencia();
             sentencia_prima();
         }
@@ -105,12 +105,12 @@ public class Parser implements ParserInterface {
     }
 
     public void sentencia() { 
-        if (actual == ClaseLexica.ID) { // sentencia -> ID = expresion ;
+        if (lexer.actual.getClaseLexica() == ClaseLexica.ID) { // sentencia -> ID = expresion ;
             eat(ClaseLexica.ID); // Consumimos el ID
             eat(ClaseLexica.ASIG); // Consumimos el '='
             expresion(); // Procesamos la expresión
             eat(ClaseLexica.PYC); // Consumimos el ';'
-        } else if (actual == ClaseLexica.IF) { // sentencia -> if ( expresion ) sentencias else sentencias
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.IF) { // sentencia -> if ( expresion ) sentencias else sentencias
             eat(ClaseLexica.IF); // Consumimos 'if'
             eat(ClaseLexica.LPAR); // Consumimos '('
             expresion(); // Procesamos la condición
@@ -118,7 +118,7 @@ public class Parser implements ParserInterface {
             sentencias(); // Procesamos las sentencias del 'if'
             eat(ClaseLexica.ELSE); // Consumimos 'else'
             sentencias(); // Procesamos las sentencias del 'else'
-        } else if (actual == ClaseLexica.WHILE) { // sentencia -> while ( expresion ) sentencias
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.WHILE) { // sentencia -> while ( expresion ) sentencias
             eat(ClaseLexica.WHILE); // Consumimos 'while'
             eat(ClaseLexica.LPAR); // Consumimos '('
             expresion(); // Procesamos la condición
@@ -135,11 +135,11 @@ public class Parser implements ParserInterface {
     }
 
     public void expresion_prima() { // expresion_prima -> + expresion_1 expresion_prima | - expresion_1 expresion_prima | epsilon
-        if (actual == ClaseLexica.ADD) { // Si hay un '+'
+        if (lexer.actual.getClaseLexica() == ClaseLexica.ADD) { // Si hay un '+'
             eat(ClaseLexica.ADD); // Consumimos el '+'
             expresion_1(); // Procesamos la siguiente expresión
             expresion_prima(); // Verificamos si hay más operadores
-        } else if (actual == ClaseLexica.MINUS) { // Si hay un '-'
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.MINUS) { // Si hay un '-'
             eat(ClaseLexica.MINUS); // Consumimos el '-'
             expresion_1(); // Procesamos la siguiente expresión
             expresion_prima(); // Verificamos si hay más operadores
@@ -153,11 +153,11 @@ public class Parser implements ParserInterface {
     }
 
     public void expresion_doble_prima() { // expresion_doble_prima -> * expresion_2 expresion_doble_prima | / expresion_2 expresion_doble_prima | epsilon
-        if (actual == ClaseLexica.TIMES) { // Si hay un '*'
+        if (lexer.actual.getClaseLexica() == ClaseLexica.TIMES) { // Si hay un '*'
             eat(ClaseLexica.TIMES); // Consumimos el '*'
             expresion_2(); // Procesamos la siguiente expresión
             expresion_doble_prima(); // Verificamos si hay más operadores
-        } else if (actual == ClaseLexica.DIV) { // Si hay un '/'
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.DIV) { // Si hay un '/'
             eat(ClaseLexica.DIV); // Consumimos el '/'
             expresion_2(); // Procesamos la siguiente expresión
             expresion_doble_prima(); // Verificamos si hay más operadores
@@ -166,13 +166,13 @@ public class Parser implements ParserInterface {
     }
 
     public void expresion_2() { // expresion_2 -> ( expresion ) | ID | numero
-        if (actual == ClaseLexica.LPAR) { // Si hay un '('
+        if (lexer.actual.getClaseLexica() == ClaseLexica.LPAR) { // Si hay un '('
             eat(ClaseLexica.LPAR); // Consumimos '('
             expresion(); // Procesamos la expresión dentro de los paréntesis
             eat(ClaseLexica.RPAR); // Consumimos ')'
-        } else if (actual == ClaseLexica.ID) { // Si es un ID
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.ID) { // Si es un ID
             eat(ClaseLexica.ID); // Consumimos el ID
-        } else if (actual == ClaseLexica.NUM) { // Si es un número
+        } else if (lexer.actual.getClaseLexica() == ClaseLexica.NUM) { // Si es un número
             eat(ClaseLexica.NUM); // Consumimos el número
         } else {
             error("Se esperaba una expresión válida");

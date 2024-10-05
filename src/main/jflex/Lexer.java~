@@ -244,10 +244,8 @@ public class Lexer {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-
-public Token token_actual;
+public Token actual;
 public int getLine() { return yyline; }
-
 
 
   /**
@@ -613,73 +611,97 @@ public int getLine() { return yyline; }
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
               {
-                token_actual = new Token(0, yytext());  return token_actual.getClaseLexica();
+                actual = new Token(0, yytext());
+    return actual.getClaseLexica();
               }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { token_actual = new Token(-1, yytext()); return token_actual.getClaseLexica();
+            { actual = new Token(-1, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 20: break;
           case 2: 
-            { 
+            { /* Ignorar espacios */
             } 
             // fall through
           case 21: break;
           case 3: 
-            { token_actual = new Token(ClaseLexica.NUM, yytext());System.out.println("Encontramos un número: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un número+"+yytext());
+    actual = new Token(ClaseLexica.NUM, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 22: break;
           case 4: 
-            { token_actual = new Token(ClaseLexica.ID, yytext());System.out.println("Encontramos un identificador: "+token_actual);  return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un identificador"+ yytext());
+    actual = new Token(ClaseLexica.ID, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 23: break;
           case 5: 
-            { token_actual = new Token(ClaseLexica.LPAR, yytext()); System.out.println("Encontramos un paréntesis: "+token_actual);  return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un paréntesis '('");
+    actual = new Token(ClaseLexica.LPAR, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 24: break;
           case 6: 
-            { token_actual = new Token(ClaseLexica.RPAR, yytext()); System.out.println("Encontramos un paréntesis: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un paréntesis ')'");
+    actual = new Token(ClaseLexica.RPAR, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 25: break;
           case 7: 
-            { token_actual = new Token(ClaseLexica.ASIG, yytext());  System.out.println("Encontramos un operador: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un operador '='");
+    actual = new Token(ClaseLexica.ASIG, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 26: break;
           case 8: 
-            { token_actual = new Token(ClaseLexica.ADD, yytext()); System.out.println("Encontramos un operador: "+token_actual);  return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un operador '+'");
+    actual = new Token(ClaseLexica.ADD, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 27: break;
           case 9: 
-            { token_actual = new Token(ClaseLexica.MINUS, yytext()); System.out.println("Encontramos un operador: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un operador '-'");
+    actual = new Token(ClaseLexica.MINUS, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 28: break;
           case 10: 
-            { token_actual = new Token(ClaseLexica.TIMES, yytext()); System.out.println("Encontramos un operador: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un operador '*'");
+    actual = new Token(ClaseLexica.TIMES, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 29: break;
           case 11: 
-            { token_actual = new Token(ClaseLexica.DIV, yytext()); System.out.println("Encontramos un operador: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un operador '/'");
+    actual = new Token(ClaseLexica.DIV, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 30: break;
           case 12: 
-            { token_actual = new Token(ClaseLexica.PYC, yytext()); System.out.println("Encontramos un signo de puntuación: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un signo de puntuación ';'");
+    actual = new Token(ClaseLexica.PYC, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 31: break;
           case 13: 
-            { token_actual = new Token(ClaseLexica.COMA, yytext()); System.out.println("Encontramos un signo de puntuación: "+token_actual); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos un signo de puntuación ','");
+    actual = new Token(ClaseLexica.COMA, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 32: break;
@@ -689,27 +711,37 @@ public int getLine() { return yyline; }
             // fall through
           case 33: break;
           case 15: 
-            { token_actual = new Token(ClaseLexica.IF, yytext()); System.out.println("Encontramos una palabra reservada: " +token_actual);  return token_actual.getClaseLexica();
+            { System.out.println("Encontramos una palabra reservada 'if'");
+    actual = new Token(ClaseLexica.IF, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 34: break;
           case 16: 
-            { token_actual = new Token(ClaseLexica.INT, yytext()); System.out.println("Encontramos una palabra reservada"+ token_actual);return token_actual.getClaseLexica();
+            { System.out.println("Encontramos una palabra reservada 'int'");
+    actual = new Token(ClaseLexica.INT, yytext());
+    return actual.getClaseLexica(); // Retornamos la clase léxica del token
             } 
             // fall through
           case 35: break;
           case 17: 
-            { System.out.println("Encontramos una palabra reservada: "); token_actual = new Token(ClaseLexica.ELSE, yytext()); return token_actual.getClaseLexica();
+            { System.out.println("Encontramos una palabra reservada 'else'");
+    actual = new Token(ClaseLexica.ELSE, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 36: break;
           case 18: 
-            { token_actual = new Token(ClaseLexica.FLOAT, yytext()); System.out.println("Encontramos una palabra reservada"+ token_actual);return token_actual.getClaseLexica();
+            { System.out.println("Encontramos una palabra reservada 'float'");
+    actual = new Token(ClaseLexica.FLOAT, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 37: break;
           case 19: 
-            { token_actual = new Token(ClaseLexica.WHILE, yytext());System.out.println("Encontramos una palabra reservada: " +token_actual);  return token_actual.getClaseLexica();
+            { System.out.println("Encontramos una palabra reservada 'while'");
+    actual = new Token(ClaseLexica.WHILE, yytext());
+    return actual.getClaseLexica();
             } 
             // fall through
           case 38: break;

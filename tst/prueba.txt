@@ -1,4 +1,12 @@
-int B, a,;
-float a, b, c, d, e;
+int a, _b;
+float c, d;
 
+float _c, d;
+
+a = 1 + a3;
+_b = a + 23;
+
+_b = a / 2323423;
+
+_b = a * 2323423;
 

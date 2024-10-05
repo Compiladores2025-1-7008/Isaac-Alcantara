@@ -8,7 +8,7 @@ public interface ParserInterface {
      * el símbolo terminal esperado. 
      * @param claseLexica el símbolo terminal esperado
      */
-    public void eat(Token actual);
+    public void eat(int claseLexica);
 
     /**
      * Método que nos permite imprimir un error sintáctico
