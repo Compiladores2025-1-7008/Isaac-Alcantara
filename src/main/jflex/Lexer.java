@@ -2,8 +2,8 @@
 
 package main.jflex;
 
-import main.byacc.Parser;
-import main.byacc.ParserVal;
+import main.byacc.Parser; // Importa la clase Parser para utilizar las definiciones de tokens y métodos de manejo de valores
+import main.byacc.ParserVal; // Importa ParserVal para almacenar valores de tokens
 import java.io.Reader;
 
 
@@ -235,14 +235,15 @@ public class Lexer {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-  private Parser yyparser;
+  private Parser yyparser; // Declara una referencia al parser para pasarle tokens y valores
 
+  // Constructor de Lexer, recibe un Reader y una referencia al parser
   public Lexer(Reader r, Parser yyparser) {
-    this(r);
-    this.yyparser = yyparser;
+    this(r); // Llama al constructor de la superclase con el Reader
+    this.yyparser = yyparser; // Asigna el parser pasado al campo yyparser
   }
 
-  public int getLine() { return yyline; }
+  public int getLine() { return yyline; } // Método que devuelve la línea actual de análisis
 
 
   /**
@@ -619,59 +620,68 @@ public class Lexer {
             // fall through
           case 14: break;
           case 2: 
-            { double value = Double.parseDouble(yytext());
-                      System.out.println("Token: NUM, Valor: " + value);
-                      yyparser.setYylval(new ParserVal(value)); 
-                      return Parser.NUM;
+            { // Coincide con el patrón de números definidos previamente
+                      double value = Double.parseDouble(yytext()); // Convierte el texto del token en un valor numérico
+                      System.out.println("Token: NUM, Valor: " + value); // Imprime el token y su valor
+                      yyparser.setYylval(new ParserVal(value)); // Almacena el valor en el parser
+                      return Parser.NUM; // Retorna el token NUM al parser
             } 
             // fall through
           case 15: break;
           case 3: 
-            { String value = yytext();
-                      System.out.println("Token: VAR, Valor: " + value);
-                      yyparser.setYylval(new ParserVal(value)); 
-                      return Parser.VAR;
+            { // Coincide con el patrón de variables
+                      String value = yytext(); // Obtiene el valor de texto de la variable
+                      System.out.println("Token: VAR, Valor: " + value); // Imprime el token y su valor
+                      yyparser.setYylval(new ParserVal(value)); // Almacena el valor en el parser
+                      return Parser.VAR; // Retorna el token VAR al parser
             } 
             // fall through
           case 16: break;
           case 4: 
-            { System.out.println("Token: ASIG");
-                      return Parser.ASIG;
+            { // Coincide con el operador de asignación
+                      System.out.println("Token: ASIG"); // Imprime el tipo de token
+                      return Parser.ASIG; // Retorna el token ASIG al parser
             } 
             // fall through
           case 17: break;
           case 5: 
-            { System.out.println("Token: PLUS");
+            { // Coincide con el operador de suma
+                      System.out.println("Token: PLUS");
                       return Parser.PLUS;
             } 
             // fall through
           case 18: break;
           case 6: 
-            { System.out.println("Token: MINUS");
+            { // Coincide con el operador de resta
+                      System.out.println("Token: MINUS");
                       return Parser.MINUS;
             } 
             // fall through
           case 19: break;
           case 7: 
-            { System.out.println("Token: TIMES");
+            { // Coincide con el operador de multiplicación
+                      System.out.println("Token: TIMES");
                       return Parser.TIMES;
             } 
             // fall through
           case 20: break;
           case 8: 
-            { System.out.println("Token: DIV");
+            { // Coincide con el operador de división
+                      System.out.println("Token: DIV");
                       return Parser.DIV;
             } 
             // fall through
           case 21: break;
           case 9: 
-            { System.out.println("Token: LPAREN");
+            { // Coincide con el paréntesis izquierdo
+                      System.out.println("Token: LPAREN");
                       return Parser.LPAREN;
             } 
             // fall through
           case 22: break;
           case 10: 
-            { System.out.println("Token: RPAREN");
+            { // Coincide con el paréntesis derecho
+                      System.out.println("Token: RPAREN");
                       return Parser.RPAREN;
             } 
             // fall through
@@ -687,8 +697,9 @@ public class Lexer {
             // fall through
           case 25: break;
           case 13: 
-            { System.out.println("Token: VAR_KEYWORD");
-                      return Parser.VAR_KEYWORD;
+            { // Coincide con la palabra clave "var"
+                      System.out.println("Token: VAR_KEYWORD"); // Imprime el tipo de token
+                      return Parser.VAR_KEYWORD; // Retorna el token VAR_KEYWORD al parser
             } 
             // fall through
           case 26: break;

@@ -19,7 +19,7 @@ package main.byacc;
 
 //#line 2 "Parser.y"
   import java.io.IOException;
-  import main.jflex.Lexer;
+  import main.jflex.Lexer; /* Importa la clase Lexer desde el paquete main.jflex*/
 //#line 20 "Parser.java"
 
 
@@ -308,37 +308,34 @@ final static String yyrule[] = {
 
 //#line 39 "Parser.y"
 
-Lexer scanner;
+Lexer scanner; // Declara el objeto del escáner
 
 public Parser(java.io.Reader r) {
-  scanner = new Lexer(r, this);
+  scanner = new Lexer(r, this); // Inicializa el escáner con el lector de entrada y una referencia al parser
 }
 
 public void setYylval(ParserVal yylval) {
-  this.yylval = yylval;
+  this.yylval = yylval; // Método para establecer el valor de yylval
 }
 
 public void parse() {
-  this.yyparse();
+  this.yyparse(); // Ejecuta el análisis sintáctico
 }
 
 void yyerror(String s) {
-  System.err.println("Error de sintaxis: " + s);
+  System.err.println("Error de sintaxis: " + s); // Imprime un mensaje de error de sintaxis
 }
 
 int yylex() {
     int yyl_return = -1;
     try {
-      yyl_return = scanner.yylex();
-      if (yyl_return != -1) {
-      }
+      yyl_return = scanner.yylex(); // Obtiene el siguiente token desde el escáner
     } catch (IOException e) {
-      System.err.println("Error de E/S: " + e);
+      System.err.println("Error de E/S: " + e); // Captura errores de entrada/salida
     }
-    return yyl_return;
-  }
-
-//#line 269 "Parser.java"
+    return yyl_return; // Devuelve el token obtenido o -1 si no hay más tokens
+}
+//#line 266 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -500,7 +497,7 @@ case 2:
 //#line 13 "Parser.y"
 { System.out.println("Cadena aceptada: asignación válida"); }
 break;
-//#line 426 "Parser.java"
+//#line 423 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
