@@ -17,6 +17,13 @@
 P4
 ├── README.md
 ├── src
+│   ├── calc
+│   │    ├── java
+│   │    │    └── Main.java // Clase con el método main
+│   │    ├── jflex
+│   │    │    └── Lexer.flex // Definición del An. Léxico
+│   │    └── byacc
+│   │         └── calculadora.y // Definición del An. Sintáctico
 │   └── main
 │       ├── java
 │       │   └── Main.java // Clase con el método main
@@ -31,20 +38,28 @@ P4
 
 ### Uso
 
-#### Compilacion
+### Compilación
 
 ```bash
-[P4/]$ jflex src/main/jflex/Lexer.flex
-[P4/src/main/byacc/]$ byaccj -J -Jpackage=main.byacc Parser.y
-[P4/]$ javac --source-path src -d build src/main/jflex/Main.java
+[P4/]$ jflex src/calc/jflex/Lexer.flex
+[P4/src/main/byacc/]$ byaccj -J -Jpackage=calc.byacc calculadora.y
+[P4/]$ javac --source-path src -d build src/calc/java/Main.java
 ```
 
-#### Ejecucion
+### Ejecución
+
+Para usar un archivo de entrada:
 
 ```bash
-$ java -cp build main.java.Main tst/input.txt  
+[P4/]$ java -cp build calc.java.Main src/tst/<nombre_archivo>.txt
 ```
 
+Para usar la terminal como entrada:
+
+```bash
+[P4/]$ java -cp build calc.java.Main 
+```
+---
 
 ### Ejercicios para la definción de un Analizador Sintáctico en BYACC/J
 Para la gramática de la práctica anterior (Práctica 3) o la siguiente G = ( N, Σ, P, S), descrita por las siguientes producciones: 
