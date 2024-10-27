@@ -6,14 +6,14 @@
 %}
 
 /* Declaraciones de YACC */
-%token NUM NL
+%token NUM NEWLINE
 %token PLUS MINUS TIMES DIV POW NEG LPAREN RPAREN
 
-%left RESTA SUMA
-%left MULT DIV
-%right POW /* Exponenciación */
-%left NEG   /* Negación unaria */
-%nonassoc LPAR RPAR
+%left MINUS PLUS      // Precedencia para suma y resta
+%left TIMES DIV       // Precedencia para multiplicación y división
+%right POW            // Precedencia para exponenciación
+%left NEG             // Precedencia para negación unaria
+%nonassoc LPAREN RPAREN
 
 /* Gramática */
 %%
@@ -23,19 +23,19 @@ input:
 ;
 
 line:
-    NL
-  | exp NL { System.out.println("Resultado: " + $1.dval); }
+    NEWLINE
+  | exp NEWLINE { System.out.println("Resultado: " + $1.dval); }
 ;
 
 exp:
-    NUM              { $$ = $1; }
-  | exp SUMA exp     { $$ = new ParserVal($1.dval + $3.dval); }
-  | exp RESTA exp    { $$ = new ParserVal($1.dval - $3.dval); }
-  | exp MULT exp     { $$ = new ParserVal($1.dval * $3.dval); }
-  | exp DIV exp      { $$ = new ParserVal($1.dval / $3.dval); }
-  | RESTA exp %prec NEG { $$ = new ParserVal(-$2.dval); }
-  | exp POW exp      { $$ = new ParserVal(Math.pow($1.dval, $3.dval)); }
-  | LPAR exp RPAR    { $$ = $2; }
+    NUM                  { $$ = new ParserVal($1.dval); }
+  | exp PLUS exp         { $$ = new ParserVal($1.dval + $3.dval); }
+  | exp MINUS exp        { $$ = new ParserVal($1.dval - $3.dval); }
+  | exp TIMES exp        { $$ = new ParserVal($1.dval * $3.dval); }
+  | exp DIV exp          { $$ = new ParserVal($1.dval / $3.dval); }
+  | MINUS exp %prec NEG  { $$ = new ParserVal(-$2.dval); }
+  | exp POW exp          { $$ = new ParserVal(Math.pow($1.dval, $3.dval)); }
+  | LPAREN exp RPAREN    { $$ = $2; }
 ;
 
 %%
@@ -73,3 +73,4 @@ int yylex() {
   }
   return yyl_return;
 }
+

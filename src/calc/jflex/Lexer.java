@@ -608,24 +608,25 @@ public class Lexer {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
               {
-                return 0;
+                return -1;
               }
       }
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1: 
-            { return -1;
+            { System.err.println("Error léxico: " + yytext());
             } 
             // fall through
           case 13: break;
           case 2: 
-            { yylval = new ParserVal(Double.valueOf(yytext())); 
+            { double value = Double.parseDouble(yytext());
+     yyparser.setYylval(new ParserVal(value));
     return Parser.NUM;
             } 
             // fall through
           case 14: break;
           case 3: 
-            { return '\n';
+            { return Parser.NEWLINE;
             } 
             // fall through
           case 15: break;

@@ -26,12 +26,14 @@ import calc.byacc.ParserVal;
 %unicode
 %line
 
+// Definición de un número entero o decimal
 num = ([1-9][0-9]*|0)(\\.[0-9]+)?
 
 %%
 // Número entero o decimal
 {num} { 
-    yylval = new ParserVal(Double.valueOf(yytext())); 
+	 double value = Double.parseDouble(yytext());
+     yyparser.setYylval(new ParserVal(value));
     return Parser.NUM; 
 }
 
@@ -44,7 +46,10 @@ num = ([1-9][0-9]*|0)(\\.[0-9]+)?
 "("          { return Parser.LPAREN; }
 ")"          { return Parser.RPAREN; }
 
+// Espacios en blanco y saltos de línea
 [ \t\r]+     { /* Ignorar espacios en blanco */ }
-\n           { return '\n'; }
-<<EOF>>      { return 0; }
-.            { return -1; }
+\n           { return Parser.NEWLINE; }  // Cambiado para el manejo adecuado del salto de línea
+
+<<EOF>>      { return -1; }      // Indicador de fin de archivo
+.            { System.err.println("Error léxico: " + yytext()); } // Notificación de error para caracteres no reconocidos
+
