@@ -19,11 +19,12 @@ package calc.byacc;
 
 //#line 1 "calculadora.y"
 
+  /* Importaciones necesarias para las funciones matemáticas y las clases auxiliares*/
   import java.lang.Math;
   import java.io.Reader;
   import java.io.IOException;
-  import calc.jflex.Lexer;
-//#line 23 "Parser.java"
+  import calc.jflex.Lexer;  /* Importa el lexer para usarlo en el parser*/
+//#line 24 "Parser.java"
 
 
 
@@ -268,7 +269,7 @@ final static String yyrule[] = {
 "exp : LPAREN exp RPAREN",
 };
 
-//#line 41 "calculadora.y"
+//#line 43 "calculadora.y"
 
 
 /* Instancia del lexer */
@@ -276,36 +277,36 @@ Lexer scanner;
 
 /* Constructor del parser */
 public Parser(Reader r) {
-  this.scanner = new Lexer(r, this);
+  this.scanner = new Lexer(r, this);  // Inicializa el lexer con el lector de entrada
 }
 
-/* Método para establecer yylval */
+/* Método para establecer yylval, que es el valor del token actual */
 public void setYylval(ParserVal yylval) {
-  this.yylval = yylval;
+  this.yylval = yylval;  // Asigna el valor del token al parser
 }
 
 /* Método de parseo */
 public void parse() {
-  this.yyparse();
+  this.yyparse();  // Inicia el análisis sintáctico
 }
 
-/* Manejo de errores */
+/* Manejo de errores sintácticos */
 void yyerror(String s) {
-  System.out.println("Error sintáctico: " + s);
+  System.out.println("Error sintáctico: " + s);  // Muestra un mensaje de error si hay problemas de sintaxis
 }
 
 /* Método para obtener el token actual */
 int yylex() {
   int yyl_return = -1;
   try {
-    yyl_return = scanner.yylex();
+    yyl_return = scanner.yylex();  // Obtiene el siguiente token del lexer
   } catch (IOException e) {
-    System.err.println("Error de E/S: " + e.getMessage());
+    System.err.println("Error de E/S: " + e.getMessage());  // Manejo de errores de entrada/salida
   }
-  return yyl_return;
+  return yyl_return;  // Retorna el token obtenido
 }
 
-//#line 236 "Parser.java"
+//#line 237 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -460,42 +461,42 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 4:
-//#line 27 "calculadora.y"
+//#line 29 "calculadora.y"
 { System.out.println("Resultado: " + val_peek(1).dval); }
 break;
 case 5:
-//#line 31 "calculadora.y"
+//#line 33 "calculadora.y"
 { yyval = new ParserVal(val_peek(0).dval); }
 break;
 case 6:
-//#line 32 "calculadora.y"
+//#line 34 "calculadora.y"
 { yyval = new ParserVal(val_peek(2).dval + val_peek(0).dval); }
 break;
 case 7:
-//#line 33 "calculadora.y"
+//#line 35 "calculadora.y"
 { yyval = new ParserVal(val_peek(2).dval - val_peek(0).dval); }
 break;
 case 8:
-//#line 34 "calculadora.y"
+//#line 36 "calculadora.y"
 { yyval = new ParserVal(val_peek(2).dval * val_peek(0).dval); }
 break;
 case 9:
-//#line 35 "calculadora.y"
+//#line 37 "calculadora.y"
 { yyval = new ParserVal(val_peek(2).dval / val_peek(0).dval); }
 break;
 case 10:
-//#line 36 "calculadora.y"
+//#line 38 "calculadora.y"
 { yyval = new ParserVal(-val_peek(0).dval); }
 break;
 case 11:
-//#line 37 "calculadora.y"
+//#line 39 "calculadora.y"
 { yyval = new ParserVal(Math.pow(val_peek(2).dval, val_peek(0).dval)); }
 break;
 case 12:
-//#line 38 "calculadora.y"
+//#line 40 "calculadora.y"
 { yyval = val_peek(1); }
 break;
-//#line 421 "Parser.java"
+//#line 422 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

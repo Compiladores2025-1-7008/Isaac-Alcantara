@@ -2,9 +2,10 @@
 
 package calc.jflex;
 
+// Importación de clases necesarias
 import java.io.Reader;
-import calc.byacc.Parser;
-import calc.byacc.ParserVal;
+import calc.byacc.Parser;  // Importa el parser generado con BYACC
+import calc.byacc.ParserVal;  // Clase que representa el valor de cada token
 
 
 /**
@@ -232,14 +233,17 @@ public class Lexer {
   private int zzFinalHighSurrogate = 0;
 
   /* user code: */
-    private Parser yyparser;
-    public ParserVal yylval;
+    // Declaración de variables y métodos auxiliares del lexer
+    private Parser yyparser;  // Instancia del parser que permite comunicarse con él
+    public ParserVal yylval;  // Valor del token actual
 
+    // Constructor que recibe un Reader y una instancia del parser
     public Lexer(Reader r, Parser yyparser) {
-        this(r);
-        this.yyparser = yyparser;
+        this(r);  // Llama al constructor del lexer con el Reader
+        this.yyparser = yyparser;  // Asigna el parser a la variable de instancia
     }
 
+    // Método para obtener la línea actual, útil para reportar errores
     public int getLine() { 
         return yyline; 
     }
@@ -619,9 +623,11 @@ public class Lexer {
             // fall through
           case 13: break;
           case 2: 
-            { double value = Double.parseDouble(yytext());
+            { // Convierte el texto del token a un valor double
+	 double value = Double.parseDouble(yytext());
+     // Asigna el valor del token actual al parser
      yyparser.setYylval(new ParserVal(value));
-    return Parser.NUM;
+    return Parser.NUM;  // Retorna el token NUM, indicando que es un número
             } 
             // fall through
           case 14: break;
