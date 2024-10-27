@@ -31,19 +31,19 @@ var = {letter}({letter}|{digit})*
 
 %%
 
-{digit}+           { 
+"var"          { System.out.println("Token: VAR_KEYWORD");
+                      return Parser.VAR_KEYWORD; 
+
+		}
+
+{num}           { 
                       double value = Double.parseDouble(yytext());
                       System.out.println("Token: NUM, Valor: " + value);
                       yyparser.setYylval(new ParserVal(value)); 
                       return Parser.NUM; 
                    }
-{digit}+"."{digit}+ { 
-                      double value = Double.parseDouble(yytext());
-                      System.out.println("Token: NUM, Valor: " + value);
-                      yyparser.setYylval(new ParserVal(value)); 
-                      return Parser.NUM; 
-                   }
-{letter}({letter}|{digit})* { 
+
+{var}              { 
                       String value = yytext();
                       System.out.println("Token: VAR, Valor: " + value);
                       yyparser.setYylval(new ParserVal(value)); 

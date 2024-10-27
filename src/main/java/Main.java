@@ -1,4 +1,4 @@
-package main;
+package main.java;
 
 import main.byacc.Parser;
 import java.io.FileReader;
